@@ -1,6 +1,32 @@
 import React, { useState } from 'react';
+import { z } from 'zod';
 
-function ContactUs() {
+const contactSchema = z.object({
+  name: z
+    .string()
+    .min(2, 'Name must be at least 2 characters')
+    .max(50, 'Name must be at most 50 characters')
+    .regex(/^[a-zA-Z\s'-]+$/, 'Name can only contain letters, spaces, apostrophes, and hyphens'),
+  subject: z
+    .string()
+    .min(5, 'Subject must be at least 5 characters')
+    .max(100, 'Subject must be at most 100 characters'),
+  phone: z
+    .string()
+    .regex(
+      /^(\+?\d{1,3}[- ]?)?\d{10}$/,
+      'Please enter a valid 10-digit Phone Number (with optional country code)'
+    ),
+  email: z
+    .email('Please enter a valid Email')
+    .max(100, 'Email must be at most 100 characters'),
+  message: z
+    .string()
+    .min(20, 'Message must be at least 20 characters')
+    .max(1000, 'Message must be at most 1000 characters'),
+});
+
+function Contact() {
   const [form, setForm] = useState({
     name: '',
     subject: '',
@@ -8,33 +34,8 @@ function ContactUs() {
     email: '',
     message: '',
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-
-  function validate() {
-    if (form.name.length < 4) {
-      setError('Please Enter valid Name');
-      return false;
-    }
-    if (form.subject.length < 10) {
-      setError('Please Enter Correct Subject');
-      return false;
-    }
-    if (isNaN(Number(form.phone)) || form.phone.length !== 10) {
-      setError('Please Enter valid Phone Number');
-      return false;
-    }
-    if (!form.email.includes('@') || form.email.length < 6) {
-      setError('Please Enter valid Email');
-      return false;
-    }
-    if (form.message.length <= 20) {
-      setError('Please Enter More Than 20 Characters');
-      return false;
-    }
-    setError('');
-    return true;
-  }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm({ ...form, [e.target.id]: e.target.value });
@@ -42,12 +43,15 @@ function ContactUs() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (validate()) {
-      setSuccess(true);
-      setForm({ name: '', subject: '', phone: '', email: '', message: '' });
-    } else {
+    const result = contactSchema.safeParse(form);
+    if (!result.success) {
+      setError(result.error.issues[0].message);
       setSuccess(false);
+      return;
     }
+    setError(null);
+    setSuccess(true);
+    setForm({ name: '', subject: '', phone: '', email: '', message: '' });
   }
 
   return (
@@ -118,4 +122,4 @@ function ContactUs() {
   );
 }
 
-export default ContactUs; 
+export default Contact; 

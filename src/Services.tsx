@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Services() {
   return (
     <div className="min-h-screen bg-blue-50 py-8">

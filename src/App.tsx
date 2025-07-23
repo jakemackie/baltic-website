@@ -1,7 +1,8 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import Services from './Services';
 import Customers from './Customers';
-import ContactUs from './ContactUs';
+import Contact from './Contact';
+import About from './About';
 
 function Home() {
   return (
@@ -27,8 +28,9 @@ function Home() {
       <aside className="bg-gray-100 p-4 my-4 rounded shadow max-w-xs mx-auto">
         <ul className="space-y-2 mb-4">
           <li><Link to="/" className="text-blue-700 hover:underline">home</Link></li>
+          <li><Link to="/about" className="text-blue-700 hover:underline">about us</Link></li>
           <li><Link to="/services" className="text-blue-700 hover:underline">services</Link></li>
-          <li><Link to="/contact_us" className="text-blue-700 hover:underline">contact us</Link></li>
+          <li><Link to="/contact" className="text-blue-700 hover:underline">contact us</Link></li>
           <li><Link to="/customers" className="text-blue-700 hover:underline">Apprentice Reviews</Link></li>
         </ul>
         <button className="bg-blue-700 text-white px-4 py-2 rounded w-full font-semibold hover:bg-blue-800 transition"><Link to="/login">log in</Link></button>
@@ -93,6 +95,7 @@ function Home() {
           <div>
             <h2 className="font-bold mb-2">Useful Links</h2>
             <Link to="/" className="block hover:underline">Blog</Link>
+            <Link to="/about" className="block hover:underline">About Us</Link>
             <Link to="/BalticApprenticeships" className="block hover:underline">Baltic</Link>
             <Link to="/vacancies" className="block hover:underline">Vacancies</Link>
             <Link to="/connect" className="block hover:underline">Connect</Link>
@@ -100,7 +103,7 @@ function Home() {
           <div>
             <h2 className="font-bold mb-2">Privacy</h2>
             <Link to="/careers" className="block hover:underline">Careers</Link>
-            <Link to="/contact_us" className="block hover:underline">Contact Us</Link>
+            <Link to="/contact" className="block hover:underline">Contact Us</Link>
             <Link to="/services" className="block hover:underline">Services</Link>
           </div>
           <div>
@@ -119,9 +122,10 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
       <Route path="/services" element={<Services />} />
       <Route path="/customers" element={<Customers />} />
-      <Route path="/contact_us" element={<ContactUs />} />
+      <Route path="/contact" element={<Contact />} />
     </Routes>
   );
 }
