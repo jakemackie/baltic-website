@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 
 const contactSchema = z.object({
   name: z
@@ -18,6 +22,7 @@ const contactSchema = z.object({
       'Please enter a valid 10-digit Phone Number (with optional country code)'
     ),
   email: z
+    .string()
     .email('Please enter a valid Email')
     .max(100, 'Email must be at most 100 characters'),
   message: z
@@ -55,69 +60,51 @@ function Contact() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-50">
-      <div className="w-full max-w-md bg-white p-6 rounded shadow border-t-8 border-yellow-400">
-        <h2 className="text-2xl font-bold text-blue-900 text-center mb-4">Contact us</h2>
-        {error && <div className="mb-4 bg-red-200 text-red-800 p-2 rounded text-center">{error}</div>}
-        {success && <div className="mb-4 bg-green-200 text-green-800 p-2 rounded text-center">Your Query will be Solved or Answered Soon!</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <input
+    <div className="flex items-center justify-center">
+      <Card className="w-full max-w-md border-neutral-200">
+        <CardContent className="p-6">
+          {error && <div className="mb-4 bg-red-100 text-red-800 p-2 rounded text-center">{error}</div>}
+          {success && <div className="mb-4 bg-green-100 text-green-800 p-2 rounded text-center">Your Query will be Solved or Answered Soon!</div>}
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <Input
               type="text"
               placeholder="Name"
               id="name"
               value={form.name}
               onChange={handleChange}
-              className="w-full border p-2 rounded"
             />
-          </div>
-          <div className="mb-3">
-            <input
+            <Input
               type="text"
               placeholder="Subject"
               id="subject"
               value={form.subject}
               onChange={handleChange}
-              className="w-full border p-2 rounded"
             />
-          </div>
-          <div className="mb-3">
-            <input
+            <Input
               type="text"
               placeholder="Phone"
               id="phone"
               value={form.phone}
               onChange={handleChange}
-              className="w-full border p-2 rounded"
             />
-          </div>
-          <div className="mb-3">
-            <input
+            <Input
               type="text"
               placeholder="Email"
               id="email"
               value={form.email}
               onChange={handleChange}
-              className="w-full border p-2 rounded"
             />
-          </div>
-          <div className="mb-3">
-            <textarea
+            <Textarea
               placeholder="Message"
               id="message"
               value={form.message}
               onChange={handleChange}
-              className="w-full border p-2 rounded h-24"
+              className="resize-none"
             />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-yellow-400 text-blue-900 font-bold py-2 rounded hover:bg-yellow-300 transition"
-          >
-            SUBMIT NOW
-          </button>
-        </form>
-      </div>
+            <Button type="submit" className="w-full">SUBMIT NOW</Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }
