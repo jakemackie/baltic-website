@@ -1,5 +1,4 @@
 import { Card, CardContent } from '@/components/ui/card';
-import Footer from '@/components/Footer';
 
 function About() {
   return (
@@ -38,7 +37,6 @@ function About() {
           </Card>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
