@@ -1,11 +1,9 @@
 import { Card, CardContent } from '@/components/ui/card';
 import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
 
 function Services() {
   return (
-    <div className="min-h-screen bg-zinc-50 flex flex-col min-h-screen">
-      <Navbar />
+    <div className="min-h-screen bg-zinc-50 flex flex-col">
       <div className="max-w-2xl mx-auto flex-1">
         <div className="space-y-4">
           <Card className="border-zinc-200 bg-white">
