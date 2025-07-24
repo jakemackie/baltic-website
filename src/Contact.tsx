@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { z } from 'zod';
 import { Card, CardContent } from '@/components/ui/card';
@@ -22,7 +23,6 @@ const contactSchema = z.object({
       'Please enter a valid 10-digit Phone Number (with optional country code)'
     ),
   email: z
-    .string()
     .email('Please enter a valid Email')
     .max(100, 'Email must be at most 100 characters'),
   message: z
